@@ -1,4 +1,5 @@
 require 'prawn'
+require 'pry'
 
 class Report
 
@@ -11,9 +12,17 @@ class Report
       pdf.text @country.name
       pdf.move_down 20
       pdf.text "Currency: #{@country.currency.name}"
+      pdf.text "Currency: #{@country.currency}"
+      if @country.states.any?
+        pdf.move_down 20
+        pdf.text "States:"
+        pdf.move_down 20
+
+        @country.states.each do |code, state|
+          pdf.text state["name"]
+        end
+        end
     end
   end
 
 end
-
-# Report.new(united).run
